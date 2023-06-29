@@ -1,5 +1,5 @@
 ###############################################
-# Sayılar (Numbers) ve Karakter Dizileri (Strings)
+# Numbers ve Strings
 ###############################################
 
 print("Hello world")
@@ -11,7 +11,7 @@ type(9.2)
 type("Mrb")
 
 ###############################################
-# Atamalar ve Değişkenler (Assignments & Variables)
+# Assignments & Variables
 ###############################################
 a = 9
 a
@@ -25,45 +25,45 @@ a * 10
 d = a - c
 
 ###############################################
-# Virtual Environment (Sanal Ortam)  ve (Package Managment) Paket Yönetimi
+# Virtual Environment  and Package Management
 ###############################################
 
-# Sanal ortamların listelenmesi:
+# List of Virtual Environment:
 # conda env list
 
-# Sanal ortam oluşturma:
+# Creation of Virtual Environment:
 # conda create –n myenv
 
-# Sanal ortamı aktif etme:
+# Activation of Virtual Environment:
 # conda activate myenv
 
-# Yüklü paketlerin listelenmesi:
+# Package Lists:
 # conda list
 
-# Paket yükleme:
+# Package install:
 # conda install numpy
 
-# Aynı anda birden fazla paket yükleme:
+# Installing multiple packages at once:
 # conda install numpy scipy pandas
 
-# Paket silme:
+# Package delete:
 # conda remove package_name
 
-# Belirli bir versiyona göre paket yükleme:
+# Installing package based on a specific version:
 # conda install numpy=1.20.1
 
-# Paket yükseltme:
+# Package upgrade:
 # conda upgrade numpy
 
-# Tüm paketlerin yükseltilmesi:
+# Upgrade all packages:
 # conda upgrade –all
 
-# pip: pypi (python package index) paket yönetim aracı
+# pip: pypi (python package index) 
 
-# Paket yükleme:
+# Package install:
 # pip install pandas
 
-# Paket yükleme versiyona göre:
+# Package installation by version:
 # pip install pandas==1.2.1
 
 
