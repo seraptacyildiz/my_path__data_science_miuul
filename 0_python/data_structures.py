@@ -118,9 +118,9 @@ long_str[0:10]
 
 long_str
 
-"veri" in long_str
+"data" in long_str
 
-"Veri" in long_str
+"Data" in long_str
 
 "bool" in long_str
 
@@ -139,35 +139,34 @@ type(name)
 type(len)
 
 len(name)
-len("vahitkeskin")
-len("miuul")
+len("datascience")
 
 #######################
-# upper() & lower(): küçük-büyük dönüşümleri
+# upper() & lower(): Upper-lower letter transformations
 #######################
 
-"miuul".upper()
-"MIUUL".lower()
+"datasciense".upper()
+"DATASCIENCE".lower()
 
 # type(upper)
 # type(upper())
 
 
 #######################
-# replace: karakter değiştirir
+# replace: letter change
 #######################
 
 hi = "Hello AI Era"
 hi.replace("l", "p")
 
 #######################
-# split: böler
+# split:
 #######################
 
 "Hello AI Era".split()
 
 #######################
-# strip: kırpar
+# strip:
 #######################
 
 " ofofo ".strip()
@@ -175,7 +174,7 @@ hi.replace("l", "p")
 
 
 #######################
-# capitalize: ilk harfi büyütür
+# capitalize:
 #######################
 
 "foo".capitalize()
@@ -185,12 +184,13 @@ dir("foo")
 "foo".startswith("f")
 
 ###############################################
-# Liste (List)
+# List:
 ###############################################
 
-# - Değiştirilebilir
-# - Sıralıdır. Index işlemleri yapılabilir.
-# - Kapsayıcıdır.
+# - Mutable
+# - Ordered
+# - Accessed by index
+# - Contain arrays of references to other objects
 
 notes = [1, 2, 3, 4]
 type(notes)
@@ -212,45 +212,45 @@ not_nam[0:4]
 
 
 ###############################################
-# Liste Metodları (List Methods)
+# List Methods
 ###############################################
 
 dir(notes)
 
 #######################
-# len: builtin python fonksiyonu, boyut bilgisi.
+# len: builtin python function lenght
 #######################
 
 len(notes)
 len(not_nam)
 
 #######################
-# append: eleman ekler
+# append: 
 #######################
 
 notes
 notes.append(100)
 
 #######################
-# pop: indexe göre siler
+# pop: deletes by indexes
 #######################
 
 notes.pop(0)
 
 #######################
-# insert: indexe ekler
+# insert: inserting index
 #######################
 
 notes.insert(2, 99)
 
 
 ###############################################
-# Sözlük (Dictonary)
+# Dictonary
 ###############################################
 
-# Değiştirilebilir.
-# Sırasız. (3.7 sonra sıralı.)
-# Kapsayıcı.
+# Mutable
+# Dynamic
+# Be nested
 
 # key-value
 
@@ -272,61 +272,61 @@ dictionary = {"REG": 10,
 dictionary["CART"][1]
 
 #######################
-# Key Sorgulama
+# Key querying
 #######################
 
 "YSA" in dictionary
 
 #######################
-# Key'e Göre Value'ya Erişmek
+# Accessing Value by Key
 #######################
 
 dictionary["REG"]
 dictionary.get("REG")
 
 #######################
-# Value Değiştirmek
+# Value change
 #######################
 
 dictionary["REG"] = ["YSA", 10]
 
 #######################
-# Tüm Key'lere Erişmek
+# Accessing all Keys
 #######################
 dictionary.keys()
 
 #######################
-# Tüm Value'lara Erişmek
+# Accessing all Values
 #######################
 
 dictionary.values()
 
 
 #######################
-# Tüm Çiftleri Tuple Halinde Listeye Çevirme
+# Converting All Pairs to a List as a Tuple
 #######################
 
 dictionary.items()
 
 #######################
-# Key-Value Değerini Güncellemek
+# Updating Key-Value:
 #######################
 
 dictionary.update({"REG": 11})
 
 #######################
-# Yeni Key-Value Eklemek
+# Adding new Key-Value:
 #######################
 
 dictionary.update({"RF": 10})
 
 ###############################################
-# Demet (Tuple)
+# Tuple
 ###############################################
 
-# - Değiştirilemez.
-# - Sıralıdır.
-# - Kapsayıcıdır.
+# - Mutable
+# - Ordered
+# - Be nested
 
 t = ("john", "mark", 1, 2)
 type(t)
@@ -346,34 +346,34 @@ t = tuple(t)
 # Set
 ###############################################
 
-# - Değiştirilebilir.
-# - Sırasız + Eşsizdir.
-# - Kapsayıcıdır.
+# - Be modified,  immutable
+# - Unordered + Unique
+# - Be nested
 
 #######################
-# difference(): İki kümenin farkı
+# difference(): Difference between two sets
 #######################
 
 set1 = set([1, 3, 5])
 set2 = set([1, 2, 3])
 
-# set1'de olup set2'de olmayanlar.
+# elements in set1 but not in set2.
 set1.difference(set2)
 set1 - set2
 
-# set2'de olup set1'de olmayanlar.
+# elements in set2 but not in set1.
 set2.difference(set1)
 set2 - set1
 
 #######################
-# symmetric_difference(): İki kümede de birbirlerine göre olmayanlar
+# symmetric_difference(): Those who are not relative to each other in both sets.
 #######################
 
 set1.symmetric_difference(set2)
 set2.symmetric_difference(set1)
 
 #######################
-# intersection(): İki kümenin kesişimi
+# intersection(): Intersection of both sets
 #######################
 
 set1 = set([1, 3, 5])
@@ -386,7 +386,7 @@ set1 & set2
 
 
 #######################
-# union(): İki kümenin birleşimi
+# union(): Union of both sets
 #######################
 
 set1.union(set2)
@@ -394,7 +394,7 @@ set2.union(set1)
 
 
 #######################
-# isdisjoint(): İki kümenin kesişimi boş mu?
+# isdisjoint(): Is the intersection of both sets is empty?
 #######################
 
 set1 = set([7, 8, 9])
@@ -405,14 +405,14 @@ set2.isdisjoint(set1)
 
 
 #######################
-# isdisjoint(): Bir küme diğer kümenin alt kümesi mi?
+# isdisjoint(): Is one set a subset of another set?
 #######################
 
 set1.issubset(set2)
 set2.issubset(set1)
 
 #######################
-# issuperset(): Bir küme diğer kümeyi kapsıyor mu?
+# issuperset(): Does one set include another set?
 #######################
 
 set2.issuperset(set1)
