@@ -1,29 +1,29 @@
 ###############################################
-# VERİ YAPILARI (DATA STRUCTURES)
+# DATA STRUCTURES
 ###############################################
-# - Veri Yapılarına Giriş ve Hızlı Özet
-# - Sayılar (Numbers): int, float, complex
-# - Karakter Dizileri (Strings): str
+# - Introduction to Data Structures and Summary
+# - Numbers: int, float, complex
+# - Strings: str
 # - Boolean (TRUE-FALSE): bool
-# - Liste (List)
-# - Sözlük (Dictionary)
-# - Demet (Tuple)
+# - List
+# - Dictionary
+# - Tuple
 # - Set
 
 
 ###############################################
-# Veri Yapılarına Giriş ve Hızlı Özet
+# Introduction to Data Structures and Summary
 ##############################################
 
-# Sayılar: integer
+# Numbers: integer
 x = 46
 type(x)
 
-# Sayılar: float
+# Numbers: float
 x = 10.3
 type(x)
 
-# Sayılar: complex
+# Numbers: complex
 x = 2j + 1
 type(x)
 
@@ -40,11 +40,11 @@ type(True)
 1 == 1
 type(3 == 2)
 
-# Liste
+# List
 x = ["btc", "eth", "xrp"]
 type(x)
 
-# Sözlük (dictionary)
+# Dictionary
 x = {"name": "Peter", "Age": 36}
 type(x)
 
@@ -56,11 +56,11 @@ type(x)
 x = {"python", "ml", "ds"}
 type(x)
 
-# Not: Liste, tuple, set ve dictionary veri yapıları aynı zamanda Python Collections (Arrays) olarak geçmektedir.
+# Note: List, tuple, set, and dictionary data structures are also referred to as Python Collections (Arrays).
 
 
 ###############################################
-# Sayılar (Numbers): int, float, complex
+# Numbers: int, float, complex
 ###############################################
 
 a = 5
@@ -72,7 +72,7 @@ a * b / 10
 a ** 2
 
 #######################
-# Tipleri değiştirmek
+# Changing the types
 #######################
 
 int(b)
@@ -86,7 +86,7 @@ int(c)
 
 
 ###############################################
-# Karakter Dizileri (Strings)
+# Strings
 ###############################################
 
 print("John")
@@ -97,23 +97,7 @@ name = "John"
 name = 'John'
 
 #######################
-# Çok Satırlı Karakter Dizileri
-#######################
-
-"""Veri Yapıları: Hızlı Özet, 
-Sayılar (Numbers): int, float, complex, 
-Karakter Dizileri (Strings): str, 
-List, Dictionary, Tuple, Set, 
-Boolean (TRUE-FALSE): bool"""
-
-long_str = """Veri Yapıları: Hızlı Özet, 
-Sayılar (Numbers): int, float, complex, 
-Karakter Dizileri (Strings): str, 
-List, Dictionary, Tuple, Set, 
-Boolean (TRUE-FALSE): bool"""
-
-#######################
-# Karakter Dizilerinin Elemanlarına Erişmek
+# Accessing Elements of Strings
 #######################
 
 name
@@ -122,14 +106,14 @@ name[3]
 name[2]
 
 #######################
-# Karakter Dizilerinde Slice İşlemi
+# Slice Operation in Strings
 #######################
 
 name[0:2]
 long_str[0:10]
 
 #######################
-# String İçerisinde Karakter Sorgulamak
+# Querying a Character in a String
 #######################
 
 long_str
@@ -141,7 +125,7 @@ long_str
 "bool" in long_str
 
 ###############################################
-# String (Karakter Dizisi) Metodları
+# String Methods
 ###############################################
 
 dir(str)
