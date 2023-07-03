@@ -1,27 +1,27 @@
 ###############################################
-# PYTHON İLE VERİ ANALİZİ (DATA ANALYSIS WITH PYTHON)
+# DATA ANALYSIS WITH PYTHON
 ###############################################
 # - NumPy
 # - Pandas
-# - Veri Görselleştirme: Matplotlib & Seaborn
-# - Gelişmiş Fonksiyonel Keşifçi Veri Analizi (Advanced Functional Exploratory Data Analysis)
+# - Data Visualization: Matplotlib & Seaborn
+# - Advanced Functional Exploratory Data Analysis EDA
 
 #############################################
 # NUMPY
 #############################################
 
-# Neden NumPy? (Why Numpy?)
-# NumPy Array'i Oluşturmak (Creating Numpy Arrays)
-# NumPy Array Özellikleri (Attibutes of Numpy Arrays)
-# Yeniden Şekillendirme (Reshaping)
-# Index Seçimi (Index Selection)
+# Why Numpy?
+# Creating Numpy Arrays
+# Attibutes of Numpy Arrays
+# Reshaping
+# Index Selection
 # Slicing
 # Fancy Index
-# Numpy'da Koşullu İşlemler (Conditions on Numpy)
-# Matematiksel İşlemler (Mathematical Operations)
+# Conditions on Numpy
+# Mathematical Operations
 
 #############################################
-# Neden NumPy?
+# Why NumPy?
 #############################################
 import numpy as np
 a = [1, 2, 3, 4]
@@ -40,7 +40,7 @@ a * b
 
 
 #############################################
-# NumPy Array'i Oluşturmak (Creating Numpy Arrays)
+# Creating Numpy Arrays
 #############################################
 import numpy as np
 
@@ -51,7 +51,7 @@ np.random.randint(0, 10, size=10)
 np.random.normal(10, 4, (3, 4))
 
 #############################################
-# NumPy Array Özellikleri (Attibutes of Numpy Arrays)
+# Attibutes of Numpy Arrays
 #############################################
 import numpy as np
 
@@ -68,7 +68,7 @@ a.size
 a.dtype
 
 #############################################
-# Yeniden Şekillendirme (Reshaping)
+# Reshaping
 #############################################
 import numpy as np
 
@@ -80,7 +80,7 @@ ar.reshape(3, 3)
 
 
 #############################################
-# Index Seçimi (Index Selection)
+# Index Selection
 #############################################
 import numpy as np
 a = np.random.randint(10, size=10)
@@ -116,7 +116,7 @@ catch = [1, 2, 3]
 v[catch]
 
 #############################################
-# Numpy'da Koşullu İşlemler (Conditions on Numpy)
+# Conditions on Numpy
 #############################################
 import numpy as np
 v = np.array([1, 2, 3, 4, 5])
@@ -130,7 +130,7 @@ for i in v:
         ab.append(i)
 
 #######################
-# Numpy ile
+# By Numpy 
 #######################
 v < 3
 
@@ -141,7 +141,7 @@ v[v == 3]
 v[v >= 3]
 
 #############################################
-# Matematiksel İşlemler (Mathematical Operations)
+# Mathematical Operations
 #############################################
 import numpy as np
 v = np.array([1, 2, 3, 4, 5])
@@ -163,7 +163,7 @@ v = np.subtract(v, 1)
 v
 
 #######################
-# NumPy ile İki Bilinmeyenli Denklem Çözümü
+# Solving Equations with Two Unknowns with NumPy
 #######################
 
 # 5*x0 + x1 = 12
@@ -179,12 +179,12 @@ np.linalg.solve(a, b)
 #############################################
 
 # Pandas Series
-# Veri Okuma (Reading Data)
-# Veriye Hızlı Bakış (Quick Look at Data)
-# Pandas'ta Seçim İşlemleri (Selection in Pandas)
-# Toplulaştırma ve Gruplama (Aggregation & Grouping)
-# Apply ve Lambda
-# Birleştirme (Join) İşlemleri
+# Reading Data
+# Quick Look at Data
+# Selection in Pandas
+# Aggregation & Grouping
+# Apply and Lambda
+# Join
 
 #############################################
 # Pandas Series
@@ -204,7 +204,7 @@ s.tail(3)
 
 
 #############################################
-# Veri Okuma (Reading Data)
+# Reading Data
 #############################################
 import pandas as pd
 
@@ -213,7 +213,7 @@ df.head()
 # pandas cheatsheet
 
 #############################################
-# Veriye Hızlı Bakış (Quick Look at Data)
+# Quick Look at Data
 #############################################
 import pandas as pd
 import seaborn as sns
@@ -234,7 +234,7 @@ df["sex"].value_counts()
 
 
 #############################################
-# Pandas'ta Seçim İşlemleri (Selection in Pandas)
+# Selection in Pandas
 #############################################
 import pandas as pd
 import seaborn as sns
@@ -252,7 +252,7 @@ df.drop(delete_indexes, axis=0).head(10)
 # df.drop(delete_indexes, axis=0, inplace=True)
 
 #######################
-# Değişkeni Indexe Çevirmek
+# Converting a Variable to an Index
 #######################
 
 df["age"].head()
@@ -266,7 +266,7 @@ df.drop("age", axis=1, inplace=True)
 df.head()
 
 #######################
-# Indexi Değişkene Çevirmek
+# Converting an Index to a Variable
 #######################
 
 df.index
@@ -281,7 +281,7 @@ df = df.reset_index()
 df.head()
 
 #######################
-# Değişkenler Üzerinde İşlemler
+# Operations on Variables
 #######################
 import pandas as pd
 import seaborn as sns
@@ -340,7 +340,7 @@ df.loc[0:3, col_names]
 
 
 #######################
-# Koşullu Seçim (Conditional Selection)
+# Conditional Selection
 #######################
 import pandas as pd
 import seaborn as sns
@@ -364,7 +364,7 @@ df_new = df.loc[(df["age"] > 50) & (df["sex"] == "male")
 df_new["embark_town"].value_counts()
 
 #############################################
-# Toplulaştırma ve Gruplama (Aggregation & Grouping)
+# Aggregation & Grouping
 #############################################
 
 # - count()
@@ -432,7 +432,7 @@ pd.set_option('display.width', 500)
 
 
 #############################################
-# Apply ve Lambda
+# Apply and Lambda
 #############################################
 import pandas as pd
 import seaborn as sns
@@ -480,7 +480,7 @@ df.loc[:, df.columns.str.contains("age")] = df.loc[:, df.columns.str.contains("a
 df.head()
 
 #############################################
-# Birleştirme (Join) İşlemleri
+# Join
 #############################################
 import numpy as np
 import pandas as pd
@@ -493,7 +493,7 @@ pd.concat([df1, df2])
 pd.concat([df1, df2], ignore_index=True)
 
 #######################
-# Merge ile Birleştirme İşlemleri
+# Merge
 #######################
 
 df1 = pd.DataFrame({'employees': ['john', 'dennis', 'mark', 'maria'],
@@ -515,19 +515,19 @@ pd.merge(df3, df4)
 
 
 #############################################
-# VERİ GÖRSELLEŞTİRME: MATPLOTLIB & SEABORN
+# Data Visualization: MATPLOTLIB & SEABORN
 #############################################
 
 #############################################
 # MATPLOTLIB
 #############################################
 
-# Kategorik değişken: sütun grafik. countplot bar
-# Sayısal değişken: hist, boxplot
+# Categorical Variable: countplot, bar
+# Numerical Variable: hist, boxplot
 
 
 #############################################
-# Kategorik Değişken Görselleştirme
+# Categorical Variable Visualization
 #############################################
 import pandas as pd
 import seaborn as sns
@@ -541,7 +541,7 @@ df['sex'].value_counts().plot(kind='bar')
 plt.show()
 
 #############################################
-# Sayısal Değişken Görselleştirme
+# Numerical Variable Visualization
 #############################################
 import pandas as pd
 import seaborn as sns
@@ -558,7 +558,7 @@ plt.boxplot(df["fare"])
 plt.show()
 
 #############################################
-# Matplotlib'in Özellikleri
+# Matplotlib Properties
 #############################################
 import numpy as np
 import pandas as pd
@@ -629,13 +629,13 @@ plt.show()
 x = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125])
 y = np.array([240, 250, 260, 270, 280, 290, 300, 310, 320, 330])
 plt.plot(x, y)
-# Başlık
-plt.title("Bu ana başlık")
+# Title
+plt.title("This is the main topic")
 
-# X eksenini isimlendirme
-plt.xlabel("X ekseni isimlendirmesi")
+# Naming the X-axis
+plt.xlabel("Naming the X-axis")
 
-plt.ylabel("Y ekseni isimlendirmesi")
+plt.ylabel("Naming the Y-axis")
 
 plt.grid()
 plt.show()
@@ -660,7 +660,7 @@ plt.plot(x, y)
 plt.show()
 
 
-# 3 grafiği bir satır 3 sütun olarak konumlamak.
+# Showing 3 charts as one row and 3 columns
 # plot 1
 x = np.array([80, 85, 90, 95, 100, 105, 110, 115, 120, 125])
 y = np.array([240, 250, 260, 270, 280, 290, 300, 310, 320, 330])
@@ -710,7 +710,7 @@ plt.show()
 
 
 #############################################
-# Sayısal Değişken Görselleştirme
+# Numerical Variable Visualization
 #############################################
 
 sns.boxplot(x=df["total_bill"])
@@ -721,17 +721,17 @@ plt.show()
 
 
 #############################################
-# GELİŞMİŞ FONKSİYONEL KEŞİFÇİ VERİ ANALİZİ (ADVANCED FUNCTIONAL EDA)
+# ADVANCED FUNCTIONAL EDA
 #############################################
-# 1. Genel Resim
-# 2. Kategorik Değişken Analizi (Analysis of Categorical Variables)
-# 3. Sayısal Değişken Analizi (Analysis of Numerical Variables)
-# 4. Hedef Değişken Analizi (Analysis of Target Variable)
-# 5. Korelasyon Analizi (Analysis of Correlation)
+# 1. General
+# 2. Analysis of Categorical Variables
+# 3. Analysis of Numerical Variables
+# 4. Analysis of Target Variable
+# 5. Analysis of Correlation
 
 
 #############################################
-# 1. Genel Resim
+# 1. General
 #############################################
 import numpy as np
 import pandas as pd
@@ -773,7 +773,7 @@ check_df(df)
 
 
 #############################################
-# 2. Kategorik Değişken Analizi (Analysis of Categorical Variables)
+# 2. Analysis of Categorical Variables
 #############################################
 import numpy as np
 import pandas as pd
@@ -885,7 +885,7 @@ cat_summary(df, "sex")
 
 
 #############################################
-# 3. Sayısal Değişken Analizi (Analysis of Numerical Variables)
+# 3. Analysis of Numerical Variables
 #############################################
 
 import numpy as np
@@ -939,7 +939,7 @@ for col in num_cols:
 
 
 #############################################
-# Değişkenlerin Yakalanması ve İşlemlerin Genelleştirilmesi
+# Capturing Variables and Generalizing Operations
 #############################################
 
 import numpy as np
@@ -956,31 +956,31 @@ df.info()
 
 def grab_col_names(dataframe, cat_th=10,  car_th=20):
     """
-    Veri setindeki kategorik, numerik ve kategorik fakat kardinal değişkenlerin isimlerini verir.
+    It gives the names of categorical, numerical and categorical but cardinal variables in the data set.
 
     Parameters
     ----------
     dataframe: dataframe
-        değişken isimleri alınmak istenen dataframe'dir.
+        dataframe where to get variable names
     cat_th: int, float
-        numerik fakat kategorik olan değişkenler için sınıf eşik değeri
+        class threshold for numeric but categorical variables
     car_th: int, float
-        kategorik fakat kardinal değişkenler için sınıf eşik değeri
+        class threshold for categorical but cardinal variables
 
     Returns
     -------
     cat_cols: list
-        Kategorik değişken listesi
+        Categorical variable list
     num_cols: list
-        Numerik değişken listesi
+        Numeric variable list
     cat_but_car: list
-        Kategorik görünümlü kardinal değişken listesi
+        Categorical view cardinal variable list
 
     Notes
     ------
-    cat_cols + num_cols + cat_but_car = toplam değişken sayısı
-    num_but_cat cat_cols'un içerisinde.
-
+    cat_cols + num_cols + cat_but_car = total variable numbers
+    num_but_cat is in cat_cols
+    
     """
     # cat_cols, cat_but_car
     cat_cols = [col for col in dataframe.columns if str(dataframe[col].dtypes) in ["category", "object", "bool"]]
@@ -1067,7 +1067,7 @@ for col in num_cols:
 
 
 #############################################
-# 4. Hedef Değişken Analizi (Analysis of Target Variable)
+# 4. Analysis of Target Variable
 #############################################
 import numpy as np
 import pandas as pd
@@ -1093,30 +1093,30 @@ def cat_summary(dataframe, col_name, plot=False):
 
 def grab_col_names(dataframe, cat_th=10,  car_th=20):
     """
-    Veri setindeki kategorik, numerik ve kategorik fakat kardinal değişkenlerin isimlerini verir.
+    It gives the names of categorical, numerical and categorical but cardinal variables in the data set.
 
     Parameters
     ----------
     dataframe: dataframe
-        değişken isimleri alınmak istenen dataframe'dir.
+        dataframe where to get variable names
     cat_th: int, float
-        numerik fakat kategorik olan değişkenler için sınıf eşik değeri
+        class threshold for numeric but categorical variables
     car_th: int, float
-        kategorik fakat kardinal değişkenler için sınıf eşik değeri
+        class threshold for categorical but cardinal variables
 
     Returns
     -------
     cat_cols: list
-        Kategorik değişken listesi
+        Categorical variable list
     num_cols: list
-        Numerik değişken listesi
+        Numeric variable list
     cat_but_car: list
-        Kategorik görünümlü kardinal değişken listesi
+        Categorical view cardinal variable list
 
     Notes
     ------
-    cat_cols + num_cols + cat_but_car = toplam değişken sayısı
-    num_but_cat cat_cols'un içerisinde.
+    cat_cols + num_cols + cat_but_car = total variable numbers
+    num_but_cat is in cat_cols
 
     """
     # cat_cols, cat_but_car
@@ -1150,7 +1150,7 @@ df["survived"].value_counts()
 cat_summary(df, "survived")
 
 #######################
-# Hedef Değişkenin Kategorik Değişkenler ile Analizi
+# Analysis of the Target Variable with Categorical Variables
 #######################
 
 
@@ -1169,7 +1169,7 @@ for col in cat_cols:
 
 
 #######################
-# Hedef Değişkenin Sayısal Değişkenler ile Analizi
+# Analysis of the Target Variable with Numerical Variables
 #######################
 
 
@@ -1189,7 +1189,7 @@ for col in num_cols:
 
 
 #############################################
-# 5. Korelasyon Analizi (Analysis of Correlation)
+# 5. Analysis of Correlation
 #############################################
 import numpy as np
 import pandas as pd
@@ -1211,7 +1211,7 @@ plt.show()
 
 
 #######################
-# Yüksek Korelasyonlu Değişkenlerin Silinmesi
+# Deleting Highly Correlation Variables
 #######################
 
 cor_matrix = df.corr().abs()
@@ -1255,7 +1255,7 @@ drop_list = high_correlated_cols(df, plot=True)
 df.drop(drop_list, axis=1)
 high_correlated_cols(df.drop(drop_list, axis=1), plot=True)
 
-# Yaklaşık 600 mb'lık 300'den fazla değişkenin olduğu bir veri setinde deneyelim.
+# Let's try it on a dataset of about 600mb with more than 300 variables.
 # https://www.kaggle.com/c/ieee-fraud-detection/data?select=train_transaction.csv
 
 df = pd.read_csv("datasets/fraud_train_transaction.csv")
