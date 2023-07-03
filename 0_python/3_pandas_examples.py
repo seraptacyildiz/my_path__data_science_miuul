@@ -1,6 +1,6 @@
 
 ##################################################
-# Pandas Alıştırmalar
+# Pandas examples
 ##################################################
 import numpy as np
 import seaborn as sns
@@ -11,14 +11,14 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
 #########################################
-# Görev 1: Seaborn kütüphanesi içerisinden Titanic veri setini tanımlayınız.
+# Goal 1: Define the "titanic" dataset from the Seaborn library.
 #########################################
 
 df = sns.load_dataset("titanic")
 df.head()
 
 #########################################
-# Görev 2: Yukarıda tanımlanan Titanic veri setindeki kadın ve erkek yolcuların sayısını bulunuz.
+# Goal 2: Find the number of male and female passengers in the Titanic dataset described above.
 #########################################
 df["sex"].value_counts()
 
@@ -27,7 +27,7 @@ df.groupby("sex").agg({"sex": ["count"]})
 
 
 #########################################
-# Görev 3: Her bir sutuna ait unique değerlerin sayısını bulunuz.
+# Goal 3: Find the number of unique values for each column.
 #########################################
 for col in df.columns:
     print(f"{col} : {df[col].nunique()}")
@@ -40,19 +40,19 @@ df.nunique()
 
 
 #########################################
-# Görev 4: pclass değişkeninin unique değerleri bulunuz.
+# Goal 4: Find the unique values of the "pclass" variable.
 #########################################
 
 df["pclass"].unique()
 
 #########################################
-# Görev 5:  pclass ve parch değişkenlerinin unique değerlerinin sayısını bulunuz.
+# Goal 5:  Find the number of unique values of "pclass" and "patch" variables.
 #########################################
 
 df[["pclass", "parch"]].nunique()
 
 #########################################
-# Görev 6: embarked değişkeninin tipini kontrol ediniz. Tipini category olarak değiştiriniz. Tekrar tipini kontrol ediniz.
+# Goal 6: Check the type of the "embarked" variable. Change its type to category. Check the repetition type.
 #########################################
 
 df.info()
@@ -60,14 +60,14 @@ df.info()
 df["embarked"] = df["embarked"].astype("category")
 
 #########################################
-# Görev 7: embarked değeri C olanların tüm bilgelerini gösteriniz.
+# Goal 7: Show all information for those with an "embarked" value of "C".
 #########################################
 
 df[df["embarked"] == "C"].head()
 
 
 #########################################
-# Görev 8: embarked değeri S olmayanların tüm bilgelerini gösteriniz.
+# Goal 8: Show all information for those whose "embarked" value is not "S".
 #########################################
 df[df["embarked"] != "S"].head()
 
@@ -82,26 +82,26 @@ df[~(df["embarked"] == "S")].head()
 df.loc[df["embarked"] != "S"]
 
 #########################################
-# Görev 9: Yaşı 30 dan küçük ve kadın olan yolcuların tüm bilgilerini gösteriniz.
+# Goal 9: Show all information for passengers younger than 30 years old and female.
 #########################################
 df[(df["age"] < 30) & (df["sex"] == "female")].head()
 
 
 
 #########################################
-# Görev 10: Fare'i 500'den büyük veya yaşı 70 den büyük yolcuların bilgilerini gösteriniz.
+# Goal 10: Show information for passengers whose Fare is over 500 or 70 years of age.
 #########################################
 df[(df["fare"] > 500) | (df["age"] > 70)].head()
 
 #########################################
-# Görev 11: Her bir değişkendeki boş değerlerin toplamını bulunuz.
+# Goal 11: Find the sum of the null values in each variable.
 #########################################
 df.info()
-df.isnull().sum() #her bir değişkeni ayrı ayrı verir.
-df.isnull().sum().sum() #tümünün toplamını verir.
+df.isnull().sum() #returns each variable separately.
+df.isnull().sum().sum() #gives the sum of all.
 
 #########################################
-# Görev 12: who değişkenini dataframe'den düşürün.
+# Görev 12: Drop the "who" variable from the dataframe.
 #########################################
 df = df.drop("who", axis=1)
 df.head()
@@ -110,7 +110,7 @@ df.head()
 df.drop("who", axis=1, inplace=True)
 
 #########################################
-# Görev 13: deck değikenindeki boş değerleri deck değişkenin en çok tekrar eden değeri (mode) ile doldurunuz.
+# Goal 13: Fill in the empty values in the deck variable with the most repeated value (mode) of the deck variable.
 #########################################
 df["deck"].mode()[0]
 deck_mode = df["deck"].mode()[0]
@@ -130,7 +130,7 @@ df["deck"].fillna(df["deck"].mode()[0], inplace = True)
 df["deck"] = df["deck"].fillna(df["deck"].mode()[0])
 
 #########################################
-# Görev 14: age değikenindeki boş değerleri age değişkenin medyanı ile doldurun.
+# Goal 14: Fill the empty values in the age variable with the median of the age variable.
 #########################################
 
 df["age"].isnull().sum()
@@ -146,7 +146,7 @@ df["age"]
 df["age"] = df["age"].fillna(df["age"].median())
 
 #########################################
-# Görev 15: survived değişkeninin Pclass ve Cinsiyet değişkenleri kırılımınında sum, count, mean değerlerini bulunuz.
+# Goal 15: Find the sum, count, mean values of the survived variable in the breakdown of the Pclass and Sex variables.
 #########################################
 
 agg_list = ["sum", "count", "mean"]
@@ -159,8 +159,8 @@ df.groupby(["sex", "pclass"]).agg({"survived": ["mean", "sum", "count"]})
 df.pivot_table("survived", ["pclass", "sex"], aggfunc=["sum", "count", "mean"])
 
 #########################################
-# Görev 16:  30 yaşın altında olanlar 1, 30'a eşit ve üstünde olanlara 0 vericek bir fonksiyon yazınız.
-# Yazdığınız fonksiyonu kullanarak titanik veri setinde age_flag adında bir değişken oluşturunuz oluşturunuz. (apply ve lambda yapılarını kullanınız)
+# Goal 16:  Write a function that returns 1 for those under 30 and 0 for those above or equal to 30.
+# Using the function you wrote, create a variable named age_flag in the titanic data set. (use apply and lambda constructs)
 #########################################
 def flag_age(age):
     if age < 30:
@@ -178,7 +178,7 @@ age_cat(df)
 
 
 #########################################
-# Görev 17: Seaborn kütüphanesi içerisinden Tips veri setini tanımlayınız.
+# Goal 17: Define the "Tips" dataset from the Seaborn library.
 #########################################
 import pandas as pd
 import numpy as np
@@ -192,7 +192,7 @@ df = sns.load_dataset("tips")
 df.head()
 
 #########################################
-# Görev 18: Time değişkeninin kategorilerine (Dinner, Lunch) göre total_bill  değerlerinin toplamını, min, max ve ortalamasını bulunuz.
+# Goal 18: Find the sum, min, max and average of the total_bill values according to the categories (Dinner, Lunch) of the time variable.
 #########################################
 agg_list = ["sum", "min", "max", "mean"]
 df.groupby(["time"]).agg({"total_bill": agg_list})
@@ -204,7 +204,7 @@ df.groupby(["time"]).agg({"total_bill": ["sum", "min", "max", "mean"]})
 df.pivot_table("total_bill", "time", aggfunc=["sum", "min", "max", "mean"])
 
 #########################################
-# Görev 19: Günlere ve time göre total_bill değerlerinin toplamını, min, max ve ortalamasını bulunuz.
+# Goal 19: Find the sum, min, max and average of total_bill values by days and time.
 #########################################
 agg_list = ["sum", "min", "max", "mean"]
 df.groupby(["day", "time"]).agg({"total_bill": agg_list})
@@ -217,7 +217,7 @@ df.pivot_table("total_bill", ["day", "time"], aggfunc=["sum","min", "max", "mean
 df.pivot_table("total_bill", "day", "time", aggfunc=["sum","min", "max", "mean"])
 
 #########################################
-# Görev 20:Lunch zamanına ve kadın müşterilere ait total_bill ve tip  değerlerinin day'e göre toplamını, min, max ve ortalamasını bulunuz.
+# Goal 20: Find the sum, min, max and average of the total_bill and type values of the lunch time and female customers according to the day.
 #########################################
 agg_list = ["sum", "min", "max", "mean"]
 df2 = df[(df["sex"] == "Female") & (df["time"] == "Lunch")]
@@ -231,7 +231,7 @@ lunch_female.groupby(["day"]).agg({"total_bill": ["sum","min", "max", "mean"], "
 df[(df["time"] == "Lunch") & (df["sex"] == "Female")].groupby("day").agg({"total_bill": ["sum", "min", "max", "mean"],
                                                                           "tip": ["sum", "min", "max", "mean"]})
 #########################################
-# Görev 21: size'i 3'ten küçük, total_bill'i 10'dan büyük olan siparişlerin ortalaması nedir?
+# Goal 21: What is the average of orders with size less than 3 and total_bill greater than 10?
 #########################################
 
 df.loc[(df["size"] < 3) & (df["total_bill"] > 10)].mean()
@@ -241,7 +241,7 @@ df[(df["size"] < 3) & (df["total_bill"] > 10)].mean()
 
 
 #########################################
-# Görev 22: total_bill_tip_sum adında yeni bir değişken oluşturun. Her bir müşterinin ödediği totalbill ve tip in toplamını versin.
+# Goal 22: Create a new variable called total_bill tip_sum. Let him give the sum of the total bill and tip paid by each customer.
 #########################################
 
 df["total_bill_tip_sum"] = df["total_bill"] + df["tip"]
@@ -250,7 +250,7 @@ df.head()
 df["total_bill_tip_sum"].sum()
 
 #########################################
-# Görev 23: total_bill_tip_sum değişkenine göre büyükten küçüğe sıralayınız ve ilk 30 kişiyi yeni bir dataframe'e atayınız.
+# Goal 23: Sort from largest to smallest according to the total_bill_tip_sum variable and assign the first 30 people to a new dataframe.
 #########################################
 
 df["total_bill_tip_sum"] = df["total_bill"] + df["tip"]
