@@ -113,15 +113,16 @@ df.info()
 
 
 
-# GÖREV 2: CLTV Veri Yapısının Oluşturulması
-           # 1.Veri setindeki en son alışverişin yapıldığı tarihten 2 gün sonrasını analiz tarihi olarak alınız.
-           # 2.customer_id, recency_cltv_weekly, T_weekly, frequency ve monetary_cltv_avg değerlerinin yer aldığı yeni bir cltv dataframe'i oluşturunuz.
-           # Monetary değeri satın alma başına ortalama değer olarak, recency ve tenure değerleri ise haftalık cinsten ifade edilecek.
+# Goal 2: Creating the Data Structure CLTV
+            # 1. Take 2 days after the date of the last purchase in the data set as the date of analysis.
+            # 2. Create a new cltv dataframe with customer_id, recency_cltv_weekly, T_weekly, frequency and monetary_cltv_avg values.
+            # Monetary value will be expressed as average value per purchase, recency and tenure values will be expressed in weekly terms.
 
-# 1) recency: Son satın alma üzerinden geçen zaman. Haftalık. (kullanıcı özelinde)
-# 2) T: Müşterinin yaşı. Haftalık. (analiz tarihinden ne kadar süre önce ilk satın alma yapılmış)
-# 3) frequency: tekrar eden toplam satın alma sayısı (frequency>1)
-# 4) monetary: satın alma başına ortalama kazanç
+
+# 1) recency: Time since last purchase. Weekly. (user specific)
+# 2) T: Customer's age. Weekly. (how long before the analysis date the first purchase was made)
+# 3) frequency: total number of repeat purchases (frequency>1)
+# 4) monetary: average earnings per purchase
 
 
 df["last_order_date"].max()   # Timestamp('2021-05-30 00:00:00')
@@ -132,7 +133,7 @@ cltv_df.rename(columns={"master_id": "customer_id"}, inplace=True)
 
 # 1) recency:
 cltv_df["recency_weekly"] = (cltv_df["last_order_date"] - cltv_df["first_order_date"]).dt.days/7
-# 2) T: Müşterinin yaşı
+# 2) T: Customer's age
 cltv_df["T_weekly"] = (today_date - cltv_df["first_order_date"]).dt.days/7
 # 3) frequency:
 cltv_df.rename(columns={"total_order": "frequency"}, inplace=True)
@@ -156,24 +157,24 @@ cltv_df.columns
 
 
 
-# GÖREV 3: BG/NBD, Gamma-Gamma Modellerinin Kurulması, CLTV'nin hesaplanması
-           # 1. BG/NBD modelini fit ediniz. # satın alma sayısını #Beta Geometric / Negative Binomial Distribution
-                # a. 3 ay içerisinde müşterilerden beklenen satın almaları tahmin ediniz ve exp_sales_3_month olarak cltv dataframe'ine ekleyiniz.
-                # b. 6 ay içerisinde müşterilerden beklenen satın almaları tahmin ediniz ve exp_sales_6_month olarak cltv dataframe'ine ekleyiniz.
+# GÖREV 3: BG/NBD, Gamma-Gamma models, calculation of CLTV
+           # 1. Please fit BG/NBD model. #of purchase #Beta Geometric / Negative Binomial Distribution
+                # a. Estimate expected purchases from customers in 3 months and add exp_sales_3_month to cltv dataframe.
+                # b. Estimate expected purchases from customers in 6 months and add exp_sales_6_month to cltv dataframe.
 
-# 1. BG/NBD modelini fit ediniz
+# 1. Please fit BG/NBD model
 bgf = BetaGeoFitter(penalizer_coef=0.001)
 bgf.fit(cltv_df["frequency"],
         cltv_df["recency_weekly"],
         cltv_df["T_weekly"])
 
-# a = 3 Ay
+# a = 3 Months
 
 cltv_df["sales_3_month"] = bgf.conditional_expected_number_of_purchases_up_to_time(4*3,
                                                         cltv_df["frequency"],
                                                         cltv_df["recency_weekly"],
                                                         cltv_df["T_weekly"])
-# b = 6 Ay
+# b = 6 Months
 
 cltv_df["sales_6_month"] = bgf.conditional_expected_number_of_purchases_up_to_time(4*6,
                                                         cltv_df["frequency"],
@@ -182,10 +183,11 @@ cltv_df["sales_6_month"] = bgf.conditional_expected_number_of_purchases_up_to_ti
 cltv_df.head()
 
 
-            # sipariş başına ortalama satın alma
-           # 2. Gamma-Gamma modelini fit ediniz. Müşterilerin ortalama bırakacakları değeri tahminleyip exp_average_value olarak cltv dataframe'ine ekleyiniz.
+            # average purchase per order
+            # 2. Fit the Gamma-Gamma model. 
+            # Estimate the average value of the customers and add it to the cltv dataframe as exp_average_value.
 
-# 2. Gamma-Gamma modelini fit
+# 2. Fit the Gamma-Gamma model. 
 ggf = GammaGammaFitter(penalizer_coef=0.01)
 
 ggf.fit(cltv_df["frequency"], cltv_df["monetary_avg"])
@@ -200,39 +202,39 @@ cltv_df.head()
 
 
 
-# Cltv Tahmini
-           # 3. 6 aylık CLTV hesaplayınız ve cltv ismiyle dataframe'e ekleyiniz.
+# Cltv expectation
+           # 3. Calculate 6 months CLTV and add it to the dataframe with the name cltv.
 cltv_df["clv"] = ggf.customer_lifetime_value(bgf,
                                    cltv_df["frequency"],
                                    cltv_df["recency_weekly"],
                                    cltv_df["T_weekly"],
                                    cltv_df["monetary_avg"],
-                                   time=6,  # 6 aylık
-                                   freq="W",  # T'nin zaman bilgisi(haftalık)
+                                   time=6,  # 6 months
+                                   freq="W",  # T's time information (weekly)
                                    discount_rate=0.01)
 cltv_df.head(10)
 
-                # b. Cltv değeri en yüksek 20 kişiyi gözlemleyiniz.
+                # b. Check the 20 people with the highest Cltv value.
 
 cltv_df.sort_values("clv", ascending=False).head(20)
 
 
 
 
-# GÖREV 4: CLTV'ye Göre Segmentlerin Oluşturulması
-           # 1. 6 aylık tüm müşterilerinizi 4 gruba (segmente) ayırınız ve grup isimlerini veri setine ekleyiniz. cltv_segment ismi ile dataframe'e ekleyiniz.
+# Goal 4: Creating Segments by CLTV
+           # 1. Divide all 6-month-old customers into 4 groups (segments) and add the group names to the data set. Add it to the dataframe with the name cltv_segment.
 
 cltv_df["cltv_segment"] = pd.qcut(cltv_df["clv"], 4, labels=["D", "C", "B", "A"])
 cltv_df.sort_values("clv", ascending=False).head(20)
 cltv_df["cltv_segment"].value_counts()
 cltv_df.groupby("cltv_segment").agg({"clv": ["mean", "min", "max"]})
 cltv_df.head()
-           # 2. 4 grup içerisinden seçeceğiniz 2 grup için yönetime kısa kısa 6 aylık aksiyon önerilerinde bulununuz
+           # 2. Make short 6-month action suggestions to the management for 2 groups that you will choose from among 4 groups.
 
 
 
 ###############################################################
-# BONUS: Tüm süreci fonksiyonlaştırınız.
+# BONUS: Functionalize the whole process.
 ###############################################################
 
 def create_cltv_df(dataframe):
