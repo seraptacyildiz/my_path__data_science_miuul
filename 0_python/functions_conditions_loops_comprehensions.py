@@ -1,18 +1,18 @@
 ###############################################
-# FONKSİYONLAR, KOŞULLAR, DÖNGÜLER, COMPREHENSIONS
+# Functions, Conditions, Loops, Comprehesions
 ###############################################
-# - Fonksiyonlar (Functions)
-# - Koşullar (Conditions)
-# - Döngüler (Loops)
+# - Functions
+# - Conditions
+# - Loops
 # - Comprehesions
 
 
 ###############################################
-# FONKSİYONLAR (FUNCTIONS)
+# FUNCTIONS
 ###############################################
 
 #######################
-# Fonksiyon Okuryazarlığı
+# Function Literacy
 #######################
 
 print("a", "b")
@@ -21,7 +21,7 @@ print("a", "b", sep="__")
 
 
 #######################
-# Fonksiyon Tanımlama
+# Function Definition 
 #######################
 
 def calculate(x):
@@ -31,7 +31,7 @@ def calculate(x):
 calculate(5)
 
 
-# İki argümanlı/parametreli bir fonksiyon tanımlayalım.
+# defining a function with two arguments/parameters.
 
 def summer(arg1, arg2):
     print(arg1 + arg2)
@@ -72,7 +72,7 @@ summer(1, 3)
 
 
 #######################
-# Fonksiyonların Statement/Body Bölümü
+# Function's Statement/Body 
 #######################
 
 # def function_name(parameters/arguments):
@@ -103,7 +103,7 @@ def multiplication(a, b):
 
 multiplication(10, 9)
 
-# girilen değerleri bir liste içinde saklayacak fonksiyon.
+# The function to store the entered values in a list.
 
 list_store = []
 
@@ -120,7 +120,7 @@ add_element(180, 10)
 
 
 #######################
-# Ön Tanımlı Argümanlar/Parametreler (Default Parameters/Arguments)
+# Default Parameters/Arguments
 #######################
 
 def divide(a, b):
@@ -137,7 +137,7 @@ def divide(a, b):
 divide(10)
 
 
-def say_hi(string="Merhaba"):
+def say_hi(string="Hola"):
     print(string)
     print("Hi")
     print("Hello")
@@ -146,7 +146,7 @@ def say_hi(string="Merhaba"):
 say_hi("mrb")
 
 #######################
-# Ne Zaman Fonksiyon Yazma İhtiyacımız Olur?
+# When Do We Need to Write Functions?
 #######################
 
 # varm, moisture, charge
@@ -166,7 +166,7 @@ calculate(98, 12, 78)
 
 
 #######################
-# Return: Fonksiyon Çıktılarını Girdi Olarak Kullanmak
+# Return: Using Function Outputs as Input
 ######################
 
 def calculate(varm, moisture, charge):
@@ -198,7 +198,7 @@ varma, moisturea, chargea, outputa = calculate(98, 12, 78)
 
 
 #######################
-# Fonksiyon İçerisinden Fonksiyon Çağırmak
+# Calling a Function from within a Function
 ######################
 
 def calculate(varm, moisture, charge):
@@ -233,7 +233,7 @@ def all_calculation(varm, moisture, charge, a, p):
 all_calculation(1, 3, 5, 19, 12)
 
 #######################
-# Lokal & Global Değişkenler (Local & Global Variables)
+# Local & Global Variables
 #######################
 
 list_store = [1, 2]
@@ -246,10 +246,10 @@ def add_element(a, b):
 add_element(1, 9)
 
 ###############################################
-# KOŞULLAR (CONDITIONS)
+# CONDITIONS
 ###############################################
 
-# True-False'u hatırlayalım.
+# True-False 
 1 == 1
 1 == 2
 
@@ -309,7 +309,7 @@ def number_check(number):
 number_check(6)
 
 ###############################################
-# DÖNGÜLER (LOOPS)
+# LOOPS
 ###############################################
 # for loop
 
@@ -364,10 +364,10 @@ for salary in salaries:
 
 
 #######################
-# Uygulama - Mülakat Sorusu
+# Sample Interview Question
 #######################
 
-# Amaç: Aşağıdaki şekilde string değiştiren fonksiyon yazmak istiyoruz.
+# Goal: We want to write a string-changing function as follows.
 
 # before: "hi my name is john and i am learning python"
 # after: "Hi mY NaMe iS JoHn aNd i aM LeArNiNg pYtHoN"
@@ -384,12 +384,12 @@ for i in range(len("miuul")):
 
 def alternating(string):
     new_string = ""
-    # girilen string'in index'lerinde gez.
+    # browse the indexes of the entered string.
     for string_index in range(len(string)):
-        # index çift ise büyük harfe çevir.
+        # Capitalize if index is even.
         if string_index % 2 == 0:
             new_string += string[string_index].upper()
-        # index tek ise küçük harfe çevir.
+        # Lowercase if index is odd.
         else:
             new_string += string[string_index].lower()
     print(new_string)
@@ -422,7 +422,7 @@ while number < 5:
     number += 1
 
 #######################
-# Enumerate: Otomatik Counter/Indexer ile for loop
+# Enumerate: Automatic Counter/Indexer with for loop
 #######################
 
 students = ["John", "Mark", "Venessa", "Mariam"]
@@ -444,12 +444,12 @@ for index, student in enumerate(students):
 
 
 #######################
-# Uygulama - Mülakat Sorusu
+# Sample Interview Question
 #######################
-# divide_students fonksiyonu yazınız.
-# Çift indexte yer alan öğrencileri bir listeye alınız.
-# Tek indexte yer alan öğrencileri başka bir listeye alınız.
-# Fakat bu iki liste tek bir liste olarak return olsun.
+# Write divide_students function
+# Put the students into a list if they are in even index 
+# Put the students into another list if they are in odd index 
+# But let these two lists return as a single list.
 
 students = ["John", "Mark", "Venessa", "Mariam"]
 
@@ -470,7 +470,7 @@ st[1]
 
 
 #######################
-# alternating fonksiyonunun enumerate ile yazılması
+# Writing the alternating function with enumerate
 #######################
 
 def alternating_with_enumerate(string):
@@ -599,11 +599,11 @@ dictionary.items()
 
 
 #######################
-# Uygulama - Mülakat Sorusu
+# Sample Interview Question
 #######################
 
-# Amaç: çift sayıların karesi alınarak bir sözlüğe eklenmek istemektedir
-# Key'ler orjinal değerler value'lar ise değiştirilmiş değerler olacak.
+# Goal: Add to a dictionary by squaring even numbers
+# Keys will be original values and values will be modified values.
 
 
 numbers = range(10)
@@ -616,11 +616,11 @@ for n in numbers:
 {n: n ** 2 for n in numbers if n % 2 == 0}
 
 #######################
-# List & Dict Comprehension Uygulamalar
+# List & Dict Comprehension examples
 #######################
 
 #######################
-# Bir Veri Setindeki Değişken İsimlerini Değiştirmek
+# Changing Variable Names in a Dataset
 #######################
 
 # before:
@@ -649,7 +649,7 @@ df = sns.load_dataset("car_crashes")
 df.columns = [col.upper() for col in df.columns]
 
 #######################
-# İsminde "INS" olan değişkenlerin başına FLAG diğerlerine NO_FLAG eklemek istiyoruz.
+# We want to add FLAG to the beginning of the variables with "INS" in the name and NO_FLAG to the others.
 #######################
 
 # before:
@@ -681,8 +681,8 @@ df.columns = [col.upper() for col in df.columns]
 df.columns = ["FLAG_" + col if "INS" in col else "NO_FLAG_" + col for col in df.columns]
 
 #######################
-# Amaç key'i string, value'su aşağıdaki gibi bir liste olan sözlük oluşturmak.
-# Sadece sayısal değişkenler için yapmak istiyoruz.
+# Goal: To create a dictionary whose key is string and value is a list as follows.
+# We only want to do it for numeric variables.
 #######################
 
 # Output:
@@ -705,7 +705,7 @@ agg_list = ["mean", "min", "max", "sum"]
 for col in num_cols:
     soz[col] = agg_list
 
-# kısa yol
+# shortcut
 new_dict = {col: agg_list for col in num_cols}
 
 df[num_cols].head()
