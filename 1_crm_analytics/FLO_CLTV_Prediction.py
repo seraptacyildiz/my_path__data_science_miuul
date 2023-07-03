@@ -1,47 +1,47 @@
 ##############################################################
-# BG-NBD ve Gamma-Gamma ile CLTV Prediction
+# CLTV Prediction with BG-NBD and Gamma-Gamma
 ##############################################################
 
 ###############################################################
-# İş Problemi (Business Problem)
+# Business Problem
 ###############################################################
-# FLO satış ve pazarlama faaliyetleri için roadmap belirlemek istemektedir.
-# Şirketin orta uzun vadeli plan yapabilmesi için var olan müşterilerin gelecekte şirkete sağlayacakları potansiyel değerin tahmin edilmesi gerekmektedir.
-
-
-###############################################################
-# Veri Seti Hikayesi
-###############################################################
-
-# Veri seti son alışverişlerini 2020 - 2021 yıllarında OmniChannel(hem online hem offline alışveriş yapan) olarak yapan müşterilerin geçmiş alışveriş davranışlarından
-# elde edilen bilgilerden oluşmaktadır.
-
-# master_id: Eşsiz müşteri numarası
-# order_channel : Alışveriş yapılan platforma ait hangi kanalın kullanıldığı (Android, ios, Desktop, Mobile, Offline)
-# last_order_channel : En son alışverişin yapıldığı kanal
-# first_order_date : Müşterinin yaptığı ilk alışveriş tarihi
-# last_order_date : Müşterinin yaptığı son alışveriş tarihi
-# last_order_date_online : Muşterinin online platformda yaptığı son alışveriş tarihi
-# last_order_date_offline : Muşterinin offline platformda yaptığı son alışveriş tarihi
-# order_num_total_ever_online : Müşterinin online platformda yaptığı toplam alışveriş sayısı
-# order_num_total_ever_offline : Müşterinin offline'da yaptığı toplam alışveriş sayısı
-# customer_value_total_ever_offline : Müşterinin offline alışverişlerinde ödediği toplam ücret
-# customer_value_total_ever_online : Müşterinin online alışverişlerinde ödediği toplam ücret
-# interested_in_categories_12 : Müşterinin son 12 ayda alışveriş yaptığı kategorilerin listesi
+# The company FLO wants to set a roadmap for sales and marketing activities.
+# In order for the company to make a medium-long-term plan, it is necessary to estimate the potential value that existing customers will provide to the company in the future.
 
 
 ###############################################################
-# GÖREVLER
+# Story of Dataset
 ###############################################################
-# GÖREV 1: Veriyi Hazırlama
-           # 1. flo_data_20K.csv verisini okuyunuz.Dataframe’in kopyasını oluşturunuz.
-           # 2. Aykırı değerleri baskılamak için gerekli olan outlier_thresholds ve replace_with_thresholds fonksiyonlarını tanımlayınız.
-           # Not: cltv hesaplanırken frequency değerleri integer olması gerekmektedir.Bu nedenle alt ve üst limitlerini round() ile yuvarlayınız.
-           # 3. "order_num_total_ever_online","order_num_total_ever_offline","customer_value_total_ever_offline","customer_value_total_ever_online" değişkenlerinin
-           # aykırı değerleri varsa baskılayanız.
-           # 4. Omnichannel müşterilerin hem online'dan hemde offline platformlardan alışveriş yaptığını ifade etmektedir. Herbir müşterinin toplam
-           # alışveriş sayısı ve harcaması için yeni değişkenler oluşturun.
-           # 5. Değişken tiplerini inceleyiniz. Tarih ifade eden değişkenlerin tipini date'e çeviriniz.
+
+# The dataset consists of information obtained from the past shopping behaviors of customers who made their last purchases 
+# as OmniChannel (both online and offline shopper) in 2020 - 2021.
+
+# master_id: Unique customer number
+# order_channel : Which channel of the shopping platform is used (Android, ios, Desktop, Mobile, Offline)
+# last_order_channel : The channel where the most recent purchase was made
+# first_order_date :Date of first purchase made by the customer
+# last_order_date : Date of last purchase made by the customer
+# last_order_date_online : The date of the last purchase made by the customer on the online platform
+# last_order_date_offline : The date of the last purchase made by the customer on the offline platform
+# order_num_total_ever_online : The total number of purchases made by the customer on the online platform
+# order_num_total_ever_offline : The total number of purchases made by the customer on the offline platform
+# customer_value_total_ever_offline : Total fee paid by the customer for offline purchases
+# customer_value_total_ever_online : The total fee paid by the customer for their online shopping
+# interested_in_categories_12 : List of categories the customer has shopped in the last 12 months
+
+
+###############################################################
+# GOALS
+###############################################################
+# Goal 1: Prepare data
+            # 1. Read the data flo_data_20K.csv. Make a copy of the dataframe.
+            # 2. Define the outlier_thresholds and replace_with_thresholds functions needed to suppress outliers.
+            # Note: When calculating cltv, frequency values must be integers. Therefore, round the lower and upper limits with round().
+            # 3. Suppress if the variables "order_num_total_ever_online","order_num_total_ever_offline","customer_value_total_ever_offline","customer_value_total_ever_online" 
+            # have outliers.
+            # 4. Omnichannel means that customers shop from both online and offline platforms. 
+            # Create new variables for each customer's total purchases and spending.
+            # 5. Examine the variable types. Change the type of variables that express date to "date".
 
 import pandas as pd
 import datetime as dt
@@ -55,7 +55,7 @@ pd.set_option('display.max_rows', None)
 pd.set_option('display.width', 400)
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
 
-df_ = pd.read_csv(r"D:\DataScience\Python\Miuul_Data_Science\Hard_Skill\Hard_Skill_Ödevler\Third_Alıstırmalar\FLOMusteriSegmentasyonu\flo_data_20k.csv")
+df_ = pd.read_csv("D:\FLOMusteriSegmentasyonu\flo_data_20k.csv")
 df = df_.copy()
 df.head(10)
 df.columns
@@ -64,7 +64,7 @@ df.isnull().sum()
 df.info()
 df["master_id"].nunique()
 
-# 2.Aykırı değerleri baskılamak için gerekli olan outlier_thresholds ve replace_with_thresholds fonksiyonlarını tanımlayınız.
+   # 2. Define the outlier_thresholds and replace_with_thresholds functions needed to suppress outliers.
 
 def outlier_thresholds(dataframe, variable):
     quartile1 = dataframe[variable].quantile(0.01)
@@ -81,8 +81,8 @@ def replace_with_thresholds(dataframe, variable):
     dataframe.loc[(dataframe[variable] > up_limit), variable] = round(up_limit, 0)
 
 
- # 3. "order_num_total_ever_online","order_num_total_ever_offline","customer_value_total_ever_offline","customer_value_total_ever_online" değişkenlerinin
-           # aykırı değerleri varsa baskılayanız.
+ # 3. Suppress if the variables "order_num_total_ever_online","order_num_total_ever_offline","customer_value_total_ever_offline","customer_value_total_ever_online" 
+ # have outliers.
 replace_with_thresholds(df, "order_num_total_ever_online")
 replace_with_thresholds(df, "order_num_total_ever_offline")
 replace_with_thresholds(df, "customer_value_total_ever_offline")
@@ -96,15 +96,15 @@ df.head()
 
 
 
-# 4. Omnichannel müşterilerin hem online'dan hemde offline platformlardan alışveriş yaptığını ifade etmektedir. Herbir müşterinin toplam
-# alışveriş sayısı ve harcaması için yeni değişkenler oluşturun.
+ # 4. Omnichannel means that customers shop from both online and offline platforms. 
+ # Create new variables for each customer's total purchases and spending.
 
 
 df["total_order"] = df["order_num_total_ever_online"] + df["order_num_total_ever_offline"]
 df["total_value"] = df["customer_value_total_ever_offline"] + df["customer_value_total_ever_online"]
 df.head()
 
-# 5. Değişken tiplerini inceleyiniz. Tarih ifade eden değişkenlerin tipini date'e çeviriniz.
+# 5. Examine the variable types. Change the type of variables that express date to "date".
 
 for col in df.columns:
     if "date" in col:
