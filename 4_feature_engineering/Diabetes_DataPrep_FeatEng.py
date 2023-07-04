@@ -1,3 +1,5 @@
+##############  Diabete Feature Engineering ##############################################
+
 import pickle
 from helpers.data_prep import *
 from helpers.eda import *
@@ -34,35 +36,32 @@ pd.set_option('display.float_format', lambda x: '%.3f' % x)
 ##########################################################################
 
 
-# GÖREV 1: KEŞİFCİ VERİ ANALİZİ
-           # Adım 1: Genel resmi inceleyiniz.
-           # Adım 2: Numerik ve kategorik değişkenleri yakalayınız.
-           # Adım 3:  Numerik ve kategorik değişkenlerin analizini yapınız.
-           # Adım 4: Hedef değişken analizi yapınız. (Kategorik değişkenlere göre hedef değişkenin ortalaması, hedef değişkene göre numerik değişkenlerin ortalaması)
-           # Adım 5: Aykırı gözlem analizi yapınız.
-           # Adım 6: Eksik gözlem analizi yapınız.
-           # Adım 7: Korelasyon analizi yapınız.
+# GOAL 1: EDA
+            # Step 1: General
+            # Step 2: Capture the numeric and categorical variables.
+            # Step 3: Analyze the numerical and categorical variables.
+            # Step 4: Perform target variable analysis. (The mean of the target variable according to the categorical variables, the mean of the numeric variables according to the target variable)
+            # Step 5: Analyze the outlier observation.
+            # Step 6: Analyze the missing observations.
+            # Step 7: Perform correlation analysis.
 
-# GÖREV 2: FEATURE ENGINEERING
-           # Adım 1:  Eksik ve aykırı değerler için gerekli işlemleri yapınız. Veri setinde eksik gözlem bulunmamakta ama Glikoz, Insulin vb.
-           # değişkenlerde 0 değeri içeren gözlem birimleri eksik değeri ifade ediyor olabilir. Örneğin; bir kişinin glikoz veya insulin değeri
-           # 0 olamayacaktır. Bu durumu dikkate alarak sıfır değerlerini ilgili değerlerde NaN olarak atama yapıp sonrasında eksik değerlere
-           # işlemleri uygulayabilirsiniz.
-           # Adım 2: Yeni değişkenler oluşturunuz.
-           # Adım 3:  Encoding işlemlerini gerçekleştiriniz.
-           # Adım 4: Numerik değişkenler için standartlaştırma yapınız.
-           # Adım 5: Model oluşturunuz.
+# GOAL 2: FEATURE ENGINEERING
+            # Step 1: Take necessary actions for missing and outlier values. There are no missing observations in the data set, but Glucose, Insulin etc. Observation units containing a value of 0 in the variables may represent the missing value. For example; a person's glucose or insulin value will not be 0. Considering this situation, you can assign the zero values to the relevant values as NaN and then apply the operations to the missing values.
+            # Step 2: Create new variables.
+            # Step 3: Perform the encoding operations.
+            # Step 4: Standardize for numeric variables.
+            # Step 5: Create a model.
 
 ##################################
-# GÖREV 1: KEŞİFCİ VERİ ANALİZİ
+# GOAL 1: EDA
 ##################################
 
 ##################################
-# GENEL RESİM
+# Step 1: General
 ##################################
 
 def load():
-    data = pd.read_csv("C:/Users/Tugce.Dogan/Downloads/diabetes.csv")
+    data = pd.read_csv("diabetes.csv")
     return data
 
 
@@ -73,33 +72,41 @@ check_df(df)
 df["Outcome"].value_counts()
 
 
+# NOTES:
+# Could the Glucose value be zero?
+# Can the insulin level be zero?
+# Can blood pressure be zero?
+# There were missing values in the data set but zero was printed?
+# There is a big jump in the insulin value from 95 quarters to the maximum value,
+# which is a signal that there may be an outlier value!
+
+
 ##################################
-# NUMERİK VE KATEGORİK DEĞİŞKENLERİN YAKALANMASI
+# Step 2: Finding numeric and categorical variables
 ##################################
 
 def grab_col_names(dataframe, cat_th=10, car_th=20):
     """
 
-    Veri setindeki kategorik, numerik ve kategorik fakat kardinal değişkenlerin isimlerini verir.
-    Not: Kategorik değişkenlerin içerisine numerik görünümlü kategorik değişkenler de dahildir.
-
+    It gives the names of categorical, numerical and categorical but cardinal variables in the data set.
+    Note: Categorical variables with numerical appearance are also included in categorical variables.
     Parameters
     ------
         dataframe: dataframe
-                Değişken isimleri alınmak istenilen dataframe
+                The dataframe from which variable names are to be retrieved
         cat_th: int, optional
-                numerik fakat kategorik olan değişkenler için sınıf eşik değeri
+                class threshold for numeric but categorical variables
         car_th: int, optional
-                kategorik fakat kardinal değişkenler için sınıf eşik değeri
+                class threshold for categorical but cardinal variables
 
     Returns
     ------
         cat_cols: list
-                Kategorik değişken listesi
+                Categorical variable list
         num_cols: list
-                Numerik değişken listesi
+                Numeric variable list
         cat_but_car: list
-                Kategorik görünümlü kardinal değişken listesi
+                Categorical view cardinal variable list
 
     Examples
     ------
@@ -110,7 +117,7 @@ def grab_col_names(dataframe, cat_th=10, car_th=20):
 
     Notes
     ------
-        cat_cols + num_cols + cat_but_car = toplam değişken sayısı
+        cat_cols + num_cols + cat_but_car = total number of variables
         num_but_cat cat_cols'un içerisinde.
 
     """
@@ -143,7 +150,7 @@ cat_but_car
 
 
 ##################################
-# KATEGORİK DEĞİŞKENLERİN ANALİZİ
+# Step 3: Analysis of Categorical Variables
 ##################################
 
 def cat_summary(dataframe, col_name, plot=False):
@@ -158,7 +165,7 @@ cat_summary(df, "Outcome",plot=True)
 
 
 ##################################
-# NUMERİK DEĞİŞKENLERİN ANALİZİ
+# Step 4: Analysis of Numerical Variables
 ##################################
 
 def num_summary(dataframe, numerical_col, plot=False):
@@ -175,7 +182,7 @@ for col in num_cols:
     num_summary(df, col, plot=True)
 
 ##################################
-# NUMERİK DEĞİŞKENLERİN TARGET GÖRE ANALİZİ
+# Step 5: Analysis of Numerical Variables according to Target
 ##################################
 
 def target_summary_with_num(dataframe, target, numerical_col):
@@ -186,12 +193,12 @@ for col in num_cols:
 
 
 ##################################
-# KORELASYON
+# Step 6: Correlation
 ##################################
 
 df.corr()
 
-# Korelasyon Matrisi
+# Correlation Matrix
 f, ax = plt.subplots(figsize=[18, 13])
 sns.heatmap(df.corr(), annot=True, fmt=".2f", ax=ax, cmap="magma")
 ax.set_title("Correlation Matrix", fontsize=20)
@@ -212,7 +219,7 @@ plt.show()
 
 
 ##################################
-# BASE MODEL KURULUMU
+# BASE MODEL INSTALLATION
 ##################################
 
 y = df["Outcome"]
@@ -230,22 +237,22 @@ print(f"F1: {round(f1_score(y_pred,y_test), 2)}")
 print(f"Auc: {round(roc_auc_score(y_pred,y_test), 2)}")
 
 # Accuracy: 0.77
-# Recall: 0.706 # pozitif sınıfın ne kadar başarılı tahmin edildiği
-# Precision: 0.59 # Pozitif sınıf olarak tahmin edilen değerlerin başarısı
+# Recall: 0.706 # how well the positive class was predicted
+# Precision: 0.59 # Success of predicted values as positive class
 # F1: 0.64
 # Auc: 0.75
 
 
 ##################################
-# GÖREV 2: FEATURE ENGINEERING
+# GOAL 2: FEATURE ENGINEERING
 ##################################
 
 ##################################
-# EKSİK DEĞER ANALİZİ
+# MISSING VALUE ANALYSIS
 ##################################
-
-# Bir insanda Pregnancies ve Outcome dışındaki değişken değerleri 0 olamayacağı bilinmektedir.
-# Bundan dolayı bu değerlerle ilgili aksiyon kararı alınmalıdır. 0 olan değerlere NaN atanabilir .
+# Note: Variables that could not be zero were assigned zero.
+# It is known that a human cannot have variable values 0 other than Pregnancies and Outcome.
+# Therefore, an action decision should be taken regarding these values. Values that are 0 can be assigned NaN.
 
 zero_columns = [col for col in df.columns if (df[col].min() == 0 and col not in ["Pregnancies", "Outcome"])]
 
@@ -255,14 +262,14 @@ zero_columns
 for i in df.columns:
     print('{} zero values: {}'.format(i, (df[i] == 0).sum()))
 
-# Gözlem birimlerinde 0 olan degiskenlerin her birisine gidip 0 iceren gozlem degerlerini NaN ile değiştirdik.
+# We went to each of the variables with 0 in the observation units and changed the observation values containing 0 with NaN.
 for col in zero_columns:
     df[col] = np.where(df[col] == 0, np.nan, df[col])
 
-# Eksik Gözlem Analizi
+# Missing Observation Analysis
 df.isnull().sum()
 
-# eksik veri yapısının incelenmesi
+# examining the missing data structure
 msno.matrix(df)
 plt.show()
 
@@ -284,7 +291,7 @@ def missing_values_table(dataframe, na_name=False):
 na_columns, missing_df = missing_values_table(df, na_name=True)
 
 
-# Eksik Değerlerin Bağımlı Değişken ile İlişkisinin İncelenmesi
+# Examining the Relationship of Missing Values with the Dependent Variable
 def missing_vs_target(dataframe, target, na_columns):
     temp_df = dataframe.copy()
     for col in na_columns:
@@ -298,14 +305,14 @@ def missing_vs_target(dataframe, target, na_columns):
 missing_vs_target(df, "Outcome", na_columns)
 
 #
-# Eksik Değerlerin Doldurulması
+# Filling in Missing Values
 for col in zero_columns:
     df.loc[df[col].isnull(), col] = df[col].median()
 
 
 df.isnull().sum()
 
-# 2. alternatif: MEDYAN ile doldurma
+# 2. alternatif: Filling with Median
 def replace_na_to_median(dataframe, na_col):
     for j in na_col:
         if (dataframe[j] == 0).any() == True:
