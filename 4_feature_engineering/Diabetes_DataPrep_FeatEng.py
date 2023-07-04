@@ -322,8 +322,8 @@ def replace_na_to_median(dataframe, na_col):
 
 replace_na_to_median(df, ["Insulin", "SkinThickness", "Glucose", "BloodPressure", "BMI"])
 
-# 3. alternatif: diğer değişkenleri bağımsız değ gibi düşünüp missing value'su olan (0 değeri)
-# örn Insulin'e bir reg modeli oluşturup, ona göre tahminleme yapılabilir.
+# 3rd alternative: Considering other variables as independent, creating a reg model with missing value (0 value) like Insulin, 
+# and make predictions accordingly.
 
 from matplotlib import pyplot as plt
 from sklearn.linear_model import LinearRegression
@@ -359,7 +359,7 @@ replace_na_to_reg(df, ["Insulin", "SkinThickness", "Glucose", "BloodPressure", "
 
 
 ##################################
-# AYKIRI DEĞER ANALİZİ
+# Analyze the outlier observation
 ##################################
 
 def outlier_thresholds(dataframe, col_name, q1=0.05, q3=0.95):
@@ -383,7 +383,7 @@ def replace_with_thresholds(dataframe, variable, q1=0.05, q3=0.95):
     dataframe.loc[(dataframe[variable] > up_limit), variable] = up_limit
 
 
-# Aykırı Değer Analizi ve Baskılama İşlemi
+# Outlier Analysis and Suppression Process
 for col in df.columns:
     print(col, check_outlier(df, col))
     if check_outlier(df, col):
@@ -463,7 +463,7 @@ df.loc[(df['Insulin'] >= 160), 'NEW_INSULIN_CAT'] = 'high'
 df.loc[(df['Insulin'] < 160) & (df['Insulin'] >= 16), 'NEW_INSULIN_CAT'] = 'normal'
 df.loc[(df['Insulin'] < 16), 'NEW_INSULIN_CAT'] = 'low'
 
-# Kolonların büyültülmesi
+# Capitalize columns
 df.columns = [col.upper() for col in df.columns]
 
 df.head()
@@ -472,7 +472,7 @@ df.head()
 # ENCODING
 ##################################
 
-# Değişkenlerin tiplerine göre ayrılması işlemi
+# The process of separating variables according to their types
 cat_cols, num_cols, cat_but_car = grab_col_names(df)
 df.dtypes
 
@@ -491,8 +491,8 @@ def label_encoder(dataframe, binary_col):
 for col in binary_cols:
     df = label_encoder(df, col)
 
-# One-Hot Encoding İşlemi
-# cat_cols listesinin güncelleme işlemi
+# One-Hot Encoding 
+# cat_cols list updating
 cat_cols = [col for col in cat_cols if col not in binary_cols and col not in ["OUTCOME"]]
 cat_cols
 
@@ -504,7 +504,7 @@ df = one_hot_encoder(df, cat_cols, drop_first=True)
 
 df.head()
 ##################################
-# STANDARTLAŞTIRMA
+# Standardize
 ##################################
 
 num_cols
@@ -512,7 +512,7 @@ num_cols
 scaler = StandardScaler()
 df[num_cols] = scaler.fit_transform(df[num_cols])
 
-#### Feature Engineering fonksiyonlaştırılmış hali ####
+#### Feature Engineering function ####
 def diabetes_data_prep(dataframe):
     # FEATURE ENGINEERING
     dataframe["NEW_STHICKNESS_BMI"] = dataframe["SkinThickness"] / dataframe["BMI"]
@@ -548,7 +548,7 @@ def diabetes_data_prep(dataframe):
     dataframe.loc[(dataframe['Insulin'] < 160) & (dataframe['Insulin'] >= 16), 'NEW_INSULIN_CAT'] = 'normal'
     dataframe.loc[(dataframe['Insulin'] < 16), 'NEW_INSULIN_CAT'] = 'low'
 
-    ### INSULIN için alternatif fonksiyon: assign ve apply fonk yardımıyla!!
+    ### INSULIN an alternative function with assign and apply
     # def set_insulin(df, col = 'Insulin'):
     #     if df[col] >= 16 and df[col] <= 160:
     #        return "normal"
@@ -561,7 +561,7 @@ def diabetes_data_prep(dataframe):
 
     dataframe.columns = [col.upper() for col in dataframe.columns]
 
-    # AYKIRI GOZLEM_OUTLIERS
+    # OUTLIERS
     num_cols = [col for col in dataframe.columns if len(dataframe[col].unique()) > 20
                 and dataframe[col].dtypes != 'O']
 
@@ -577,18 +577,18 @@ def diabetes_data_prep(dataframe):
     binary_cols = [col for col in dataframe.columns if
                    len(dataframe[col].unique()) == 2 and dataframe[col].dtypes == 'O']
 
-    # label_encoding ile binary olan değişkenleri 1-0 olarak değiştirir
+    # label_encoding changes binary variables to 1-0
     for col in binary_cols:
         dataframe = label_encoder(dataframe, col)
 
 
     dataframe = rare_encoder(dataframe, 0.10)
 
-    # one hot encoding de dummy değişken tuzağına düşmemek için drop_first diyerek ilek oluşan değişkeni drop eder
+    # In order not to fall into the dummy variable trap, one hot encoding drops the resulting variable by saying drop_first.
     ohe_cols = [col for col in dataframe.columns if 10 >= len(dataframe[col].unique()) > 2 and dataframe[col].dtypes == 'O']
     dataframe = one_hot_encoder(dataframe, ohe_cols, drop_first=True)
 
-    #standartlaştırma
+    # Standardize
     scaler = StandardScaler()
     dataframe[num_cols] = scaler.fit_transform(dataframe[num_cols])
 
